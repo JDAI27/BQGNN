@@ -39,6 +39,15 @@ class TrainConfig:
     bq_head_hidden: int = 64
     bq_hamiltonian: str = "A"
     bq_bosons: int = 1
+    # Merlin integration (optional)
+    merlin_enable: bool = True
+    merlin_n_modes: int = 8
+    merlin_out_dim: int | None = None
+    merlin_shots: int = 0
+    merlin_no_bunching: bool = False
+    merlin_circuit_type: str = "SERIES"
+    merlin_state_pattern: str = "PERIODIC"
+    merlin_dtype: str = "float32"
     default_feat: str = "degree"
     device: str = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -149,6 +158,11 @@ def run_kfold_experiment(cfg: TrainConfig) -> Dict[str, float]:
                 readout=cfg.readout,
             )
         elif cfg.arch.lower() == "bqgnn":
+            # Map dtype string to torch dtype
+            _DTYPE = {
+                "float32": torch.float32,
+                "float64": torch.float64,
+            }
             model = BQGNN(
                 num_layers=cfg.model_layers,
                 times=cfg.bq_times,
@@ -157,6 +171,14 @@ def run_kfold_experiment(cfg: TrainConfig) -> Dict[str, float]:
                 num_classes=n_classes,
                 hamiltonian=cfg.bq_hamiltonian,
                 bosons=cfg.bq_bosons,
+                merlin_enable=cfg.merlin_enable,
+                merlin_n_modes=cfg.merlin_n_modes,
+                merlin_out_dim=cfg.merlin_out_dim,
+                merlin_shots=cfg.merlin_shots,
+                merlin_no_bunching=cfg.merlin_no_bunching,
+                merlin_circuit_type=cfg.merlin_circuit_type,
+                merlin_state_pattern=cfg.merlin_state_pattern,
+                merlin_dtype=_DTYPE.get(cfg.merlin_dtype.lower(), torch.float32),
             )
         else:
             raise ValueError(f"Unknown arch: {cfg.arch}")
@@ -199,6 +221,14 @@ def run_and_save(cfg_dict: Dict, out_dir: str = "runs") -> Dict[str, float]:
         bq_head_hidden=int(cfg_dict.get("model", {}).get("head_hidden", 64)),
         bq_hamiltonian=str(cfg_dict.get("model", {}).get("hamiltonian", "A")),
         bq_bosons=int(cfg_dict.get("model", {}).get("bosons", 1)),
+        merlin_enable=bool(cfg_dict.get("merlin", {}).get("enable", False)),
+        merlin_n_modes=int(cfg_dict.get("merlin", {}).get("n_modes", 8)),
+        merlin_out_dim=cfg_dict.get("merlin", {}).get("out_dim", None),
+        merlin_shots=int(cfg_dict.get("merlin", {}).get("shots", 0)),
+        merlin_no_bunching=bool(cfg_dict.get("merlin", {}).get("no_bunching", False)),
+        merlin_circuit_type=str(cfg_dict.get("merlin", {}).get("circuit_type", "SERIES")),
+        merlin_state_pattern=str(cfg_dict.get("merlin", {}).get("state_pattern", "PERIODIC")),
+        merlin_dtype=str(cfg_dict.get("merlin", {}).get("dtype", "float32")),
     )
 
     result = run_kfold_experiment(cfg)
