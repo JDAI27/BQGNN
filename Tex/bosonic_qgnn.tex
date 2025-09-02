@@ -1,0 +1,455 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[numbers,sort&compress]{natbib}
+
+\title{Bosonic quantum graph learning project}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+Graph-structured data appear across science and industry, and learning from them requires models that respect connectivity. Classical Graph Neural Networks propagate information by message passing and have delivered strong results in node and graph classification. Yet their expressivity is bounded by the Weisfeiler--Lehman (WL) test, standard message-passing GNNs cannot separate many non-isomorphic graphs that 1-WL also fails to distinguish \citep{xu2019howpowerful,morris2019wl}. This limitation has motivated quantum graph learning, which represents graphs as quantum states and processes them with unitary dynamics to access richer feature spaces.
+
+This has led to interest in quantum graph learning approaches that unitize quantum computing to potentially overcome classical limits. Quantum graph learning \citep{verdon2019qgnn,bai2018qsgcnn,dernbach2018qw_nn,zheng2021qgcn,schuld2019feature,havlivcek2019qkernels} envisions representing graphs as quantum states and processing them with quantum circuits or quantum walks, with the promise of richer feature spaces and new computational paradigms for graph analysis.
+
+In particular, the use of continuous-time quantum walks on graphs \citep{godsil2013avgmixing,coutinho2017avgmixing,hong1987hom,aaronson2011bosonsampling}, especially with multiple identical particles (bosons), is a promising direction to achieve higher expressive power in distinguishing graph structures beyond what classical methods can do. This project focuses on a Bosonic Quantum Graph Neural Network (BQGNN) model based on the \emph{bosonic tight-binding Hamiltonian}, which implements a multi-particle continuous-time quantum walk on the input graph. The goal is to leverage bosonic quantum dynamics for graph representation learning while ensuring the model is \emph{permutation-invariant} to graph isomorphisms.
+
+We outline the necessary preliminaries and then describe the bosonic tight-binding QGNN model, analyzing key properties like symmetry and the roles of walk depth as number of layers and width as number of photons in the model's expressivity.
+
+\section{Preliminary}
+
+\subsection{Graph Neural Network}
+
+Let $G=(V, E)$ be a graph with node features $x_v \in \mathbb{R}^{d_0}$. A Message Passing Neural Network (MPNN) of depth $L$ produces node states $h_v^{(\ell)} \in \mathbb{R}^{d_{\ell}}$ by the recursion
+
+$$
+\begin{aligned}
+m_v^{(\ell+1)} &= \text{AGG}\left(\left\{\phi_m^{(\ell)}\left(h_v^{(\ell)}, h_u^{(\ell)}, e_{u v}\right): u \in \mathcal{N}(v)\right\}\right), \quad \ell=0, \ldots, L-1 \\
+h_v^{(\ell+1)} &= \phi_u^{(\ell)}\left(h_v^{(\ell)}, m_v^{(\ell+1)}\right)
+\end{aligned}
+$$
+
+initialized with $h_v^{(0)}=x_v$. Here $\text{AGG}$ is a permutation-invariant multiset operator such as sum, mean, or max, and $\phi_m^{(\ell)}, \phi_u^{(\ell)}$ are learnable functions. A graph representation is obtained by a permutation-invariant readout $z_G=\text{READOUT}(\{h_v^{(L)}: v \in V\})$. This fits the unified MPNN formalism for graph learning and is permutation-equivariant at the node level and permutation-invariant at the graph level, since both aggregation and readout operate on multisets, not ordered tuples \citep{xu2019howpowerful}.
+
+\subsubsection{The 1-WL refinement and its link to message passing}
+
+The 1-dimensional WL, is a classical graph isomorphism heuristic that is closely tied to GNN expressiveness. Let $\chi^{(0)}: V \rightarrow \Sigma$ be an initial node coloring. The 1-WL refinement iteratively updates colors by $\chi^{(\ell+1)}(v)=\operatorname{HASH}\left(\chi^{(\ell)}(v),\left\{\left\{\chi^{(\ell)}(u): u \in \mathcal{N}(v)\right\}\right\}\right)$, where $\{\{\cdot\}\}$ denotes a multiset and HASH is injective on its arguments. Two graphs that become non-isomorphic under 1-WL receive different stable color histograms. The core expressivity result asserts that message-passing GNNs are at most as powerful as 1-WL at distinguishing non-isomorphic graphs, and with suitable injectivity conditions they match 1-WL exactly. In particular, if each layer uses a sum-aggregator and an MLP that is injective on multisets of bounded size, then there exists a parameterization such that the induced node partition after $\ell$ layers refines the $1$-WL colors after $\ell$ rounds, and conversely $1$-WL refinements can be simulated by such a GNN. This yields the Graph Isomorphism Network (GIN) as a realization achieving 1-WL power. Formally:
+
+\textbf{Theorem (MPNN expressivity)\citep{xu2019howpowerful,morris2019wl}.} Consider graphs with bounded degree and features drawn from a countable domain. For any $\ell$, there exists a sum-aggregating MPNN layer with injective $\phi_m, \phi_u$ such that the equivalence relation induced by $\left\{h_v^{(\ell)}\right\}$ coincides with the $1$-WL coloring $\chi^{(\ell)}$. Moreover, no message-passing architecture whose aggregation is a continuous invariant of the neighbour multiset can distinguish pairs of graphs that 1-WL fails to distinguish .
+
+\subsubsection{Beyond 1-WL with classical models}
+
+Message passing tied to node neighbourhoods is bottlenecked by multiset information at the level of single vertices, known as the 1-WL ceiling. Several classical architectures provably exceed this ceiling by enlarging the computational domain while preserving permutation symmetries.
+
+\textbf{Higher-order GNNs via $k$-tuples \citep{morris2019wl}.} Operate on features $H^{(\ell)}: V^k \rightarrow \mathbb{R}^{d_{\ell}}$ and exchange messages over $k$-tuples rather than single nodes. With appropriate parameter sharing and invariant/equivariant layers, $k$-GNNs match the distinguishing power of the $k$-WL test, which strictly dominates 1-WL for $k \geq 2$. Complexity scales as $O\left(n^k\right)$ in nodes and features, reflecting the classic WL hierarchy trade off between expressivity and cost. 
+
+\textbf{Invariant and equivariant tensor networks \citep{maron2019invariant,maron2019provably}.} Layers built from linear equivariant maps on order-k tensors, interleaved with pointwise nonlinearities, can reach k-WL power. Maron et al.\ further show that a reduced 2-order architecture augmented with a quadratic tensor contraction attains 3-WL power, hence strictly exceeds 1-WL while remaining practical. This yields provably powerful yet scalable models that interleave MLPs with global matrix multiplications.
+
+\textbf{Subgraph and motif enhancements \citep{murphy2019relational,zhou2023fromrp}.} Encoding counts or embeddings of selected subgraphs into the message-passing pipeline increases power beyond 1-WL, since 1-WL cannot in general count substructures. Graph Substructure Networks implement this by injecting subgraph isomorphism counts which, under mild conditions, result in a model strictly more expressive than 1-WL while keeping linear complexity in edges for fixed substructure families.
+Standard message passing implements a multiset refinement process that is equivalent in distinguishing power to 1-WL. To surpass this limit with classical models one must either enlarge the state space to k-tuples or higher-order tensors to match k-WL, or enrich the messages with subgraph-aware signals that 1-WL cannot capture. These pathways are now well understood theoretically and provide baselines and comparators for any proposal that claims expressivity beyond WL-1.
+
+\subsection{Quantum Graph Learning}
+
+This section provides an overview of the key components and methodologies in quantum graph learning, examining how graphs can be encoded into quantum states, processed using quantum operations, and measured to extract meaningful features. 
+
+\subsubsection{Graph Encoding into a Quantum Representation}
+
+\textbf{Vertex/register layout and feature encoding.}
+The most common register layout assigns one qubit per vertex $v\in V$, giving $\mathcal{H}=\bigotimes_{i=1}^{n}\mathbb{C}^2$. Node features $x_i\in\mathbb{R}^d$ are encoded either by angle encoding $R_y(\alpha x_{i,k})$ on the qubits of node $i$ or amplitude encoding $\big\|x_i\big\|^{-1}\sum_{k}x_{i,k}|k\rangle$ when a small feature register is available. Hybrid QGNNs (e.g., HQGNN \cite{tuysuz2021hybrid}, EQGCs \cite{mernyei2021eqgc}, egoQGNN \cite{ai2022towards}) differ mostly in how they wire the graph into the circuit after this data embedding; the encoding step follows standard PQC practice.
+
+
+\noindent \textbf{Graph-as-Hamiltonian encoding.} For quantum-kernel \cite{} or quantum-walk approaches, the topology is encoded as a Hamiltonian $H_G$ and used through time evolution:
+
+$$
+H_{XY}(G)=\sum_{(i,j)\in E}\!(X_iX_j+Y_iY_j),\qquad
+H_{\mathrm{Ising}}(G)=\sum_{(i,j)\in E}\!Z_iZ_j,
+$$
+
+followed by $U_G(t)=e^{-i H_G t}$. On a device, one interleaves $e^{-iH_G t_\ell}$ with local trainable pulses to build a graph-aware feature map; this is the core of the Quantum Evolution Kernel (QEK) \cite{henry2021quantum} which ultimately compares graphs via distances between the induced measurement distributions. Formally, for a pulse sequence $\Lambda=\{t_\ell,\theta_\ell\}_{\ell=1}^p$ and a fixed input $|\psi_0\rangle$, define
+
+$$
+|\psi_f(G;\Lambda)\rangle=\Big[\prod_{\ell=1}^{p} e^{-iH_\theta(\theta_\ell)}e^{-iH_G t_\ell}\Big]|\psi_0\rangle,
+$$
+
+This Hamiltonian encoding transforms a graph into quantum dynamics, which then produces a characteristic distributional signature \citep{schuld2019feature,havlivcek2019qkernels}.
+
+\noindent \textbf{Graph-as-linear operator via Linear Combination of Unitaries.} \citep{zheng2021qgcn} To mimic the classical GCN's propagation $X^{(\ell+1)}=\sigma(\tilde A X^{(\ell)}W^{(\ell)})$ with $\tilde A=\tilde D^{-1/2}(A+I)\tilde D^{-1/2}$, QGCL realizes a non-unitary adjacency-like mixing through LCU, $\tilde A\ \approx\ \sum_{k} h_k U_k$
+.
+
+Add an ancilla prepared in $\sum_k\sqrt{\tfrac{|h_k|}{\sum_j |h_j|}}\,|k\rangle$, perform controlled-$U_k$, then post-select the ancilla, the effective action on the data register is proportional to $\sum_k h_k U_k$. A trainable weight block of single-qubit rotations implements $W^{(\ell)}$. Stacking these yields a quantum graph convolutional network (QGCN).
+
+\noindent \textbf{Subgraph-superposition encoding.} QSGK \citep{kishi2021qsgk} encodes \emph{all subgraphs} at once. Let $x\in\{0,1\}^n$ index induced subgraphs, and let $E(G,x)\in\{0,1\}^m$ be a feature oracle. Prepare
+
+$$
+|\overline{G}\rangle=\sum_{x\in\{0,1\}^n}\!|x\rangle\,|E(G,x)\rangle.
+$$
+
+Apply $H^{\otimes n}$ to the index and project onto $|0^n\rangle$; the post-selected state is $|G\rangle=\sum_{x}|E(G,x)\rangle$,  The success probability equals $2^{-2n}\sum_a |X_a|^2$, where $X_a=\{x: E(G,x)=a\}$; when many subgraphs share the same feature, this probability is polynomially large, yielding an advantage over classical random sampling to approximate the same feature vector.
+
+\noindent \textbf{Quantum-walk encodings (CTQW/DTQW).} \citep{godsil2013avgmixing,coutinho2017avgmixing,bai2018qsgcnn,zhang2019qscnn,dernbach2018qw_nn,dernbach2019qw_feature_coin} For CTQW, take $H\in\{A,L\}$, evolve $U(t)=e^{-iHt}$, and use either the instantaneous amplitudes $(U(t))_{ij}$ or the time-average mixing matrix
+
+$$
+\overline{M}=\lim_{T\to\infty}\frac{1}{T}\!\int_0^T\!U(t)\odot U(t)^\ast \,dt
+=\sum_{\ell} E_\ell\odot E_\ell,
+$$
+
+where $H=\sum_\ell \lambda_\ell E_\ell$ and $\odot$ is the Hadamard product. This follows because time-averaging annihilates cross-eigenspace terms $E_\ell U(t) E_{\ell'}$ for $\ell\ne\ell'$. $\overline{M}$ provides stable, interference-aware propagation and is used as the convolutional kernel in QSGCNN \cite{bai2018qsgcnn}; QSCNN \cite{zhang2019qscnn} uses related quantum-walk depth features. DTQW encodes a coin space $\mathcal{H}_c$ and applies $U=S(I\otimes C)$ per step, which QGRE recurs over to build embeddings.
+
+\subsection{Quantum Processing and Feature Extraction}
+
+\textbf{Quantum-walk--based propagation.} Given features $Z^{(0)}\in\mathbb{R}^{n\times d}$ on the aligned grid, QSGCNN \citep{bai2018qsgcnn} updates
+
+$$
+Z^{(\ell+1)}=\sigma\!\big(\overline{M}\, Z^{(\ell)}W^{(\ell)}+ \mathbf{1}b^{(\ell)\!\top}\big),
+$$
+
+with $\overline{M}=\sum_\lambda E_\lambda\odot E_\lambda$. Because $\overline{M}$ is a doubly stochastic PSD matrix when $H$ is symmetric, propagation is stable and reduces ``tottering.'' QSCNN\cite{zhang2019qscnn} computes multi-scale ``quantum depths'' via repeated mixing by $\overline{M}$ before feeding a CNN head.
+
+\noindent \textbf{Kernel features from programmable dynamics (QEK).} \citep{henry2021quantum} With $P_\Lambda(G)$ the measurement distribution of a graph-encoded evolution, define a PSD kernel on distributions, for instance the Hellinger inner product $K(G,G')=\sum_{z}\sqrt{P_\Lambda(G;z)P_\Lambda(G';z)}$ and train a classical SVM. The quantum part extracts device-programmable graph features; the classical part does margin-based learning. Empirically, tuned schedules $\Lambda$ are competitive with classical kernels on graph benchmarks.
+
+\noindent \textbf{Index-free subgraph features (QSGK).}\citep{kishi2021qsgk} The Hadamard index-removal derivation is immediate. Write
+
+$$
+(H^{\otimes n}\otimes I)\!\sum_x |x\rangle|E(G,x)\rangle=\frac{1}{2^{n/2}}\sum_{a}\,|a\rangle\!\!\sum_{x}(-1)^{a\cdot x}|E(G,x)\rangle.
+$$
+
+Measuring ancilla to $a=0^n$ yields the equal-superposition feature state $|G\rangle=\sum_x |E(G,x)\rangle$. The success probability equals $2^{-n}\big\|\sum_x |E(G,x)\rangle\big\|^2=2^{-2n}\sum_a|X_a|^2$, establishing the polynomial query-complexity advantage when features collide often. The kernel can then be an inner product $\langle G|G'\rangle$ or a classical similarity between the induced histograms.
+
+\noindent \textbf{Equivariant quantum message passing (EQGCs).} \citep{mernyei2021eqgc} Let $P_\pi$ permute node-qubits according to $\pi\in S_n$. Design a layer as
+
+$$
+U_{\text{EQ}}=\prod_{t=1}^{T}\Big[\ \prod_{i} U^{(t)}_{\text{node}} \ \cdot\  \prod_{i<j} U^{(t)}_{\text{pair}}\ \Big],
+$$
+
+with tied parameters across all nodes and all unordered pairs (e.g., $e^{-i(\theta_x X_iX_j+\theta_y Y_iY_j+\theta_z Z_iZ_j)}$). Then $P_\pi U_{\text{EQ}}P_\pi^\dagger=U_{\text{EQ}}$; measuring node-wise observables gives permutation-equivariant outputs. Beyond symmetry benefits, EQGCs admit universal approximation over bounded-size graphs, and empirically exhibit favorable trainability.
+
+\noindent \textbf{Native quantum recurrent processing (QGRE).} \citep{dernbach2019qw_feature_coin} DTQW updates $|\Psi_{t+1}\rangle= S(I\!\otimes\!C_\theta)|\Psi_t\rangle$, with trainable coin $C_\theta$. A recurrent head aggregates the sequence of states into a graph embedding. The core benefit is native quantum temporal processing of walk dynamics rather than classical post-processing.
+
+\noindent \textbf{Variational processing over decomposed subgraphs (DQGNN, HQGNN).}\citep{verdon2019qgnn, ai2022towards}
+Decompose $G$ into ego-nets $\{\mathcal{G}_k\}$; for each, encode features on $q$ qubits, apply a shallow ansatz $U_\phi(\theta;x_k)$, read out a vector $z_k$, and aggregate $\mathrm{AGG}\{z_k\}$ for graph-level tasks. This resource-aware modularization lets small devices process large graphs at the cost of an aggregation bias. Hierarchical Quantum Graph Neural Networks (HQGNN) employ a similar approach by processing local graph structures with quantum circuits, then combining these local embeddings using classical methods to predict connections between nodes.
+
+\subsubsection*{Measurement and Readout}
+
+Expectation-value readout for PQC/QGNNs is a common approach in quantum graph neural networks. When working with a parameterized quantum circuit represented by the ansatz $U(\theta;x)$, measurements are performed by calculating the expectation values of selected observables. These measurements are expressed as,
+
+$$
+z_{i,p}=\langle 0|U^\dagger(\theta;x)\,O_{i,p}\,U(\theta;x)|0\rangle,
+$$
+
+The resulting values are then compiled into features at various levels (node, edge, or graph) and subsequently processed by classical neural network components. To maintain equivariance properties in the quantum circuit, researchers typically employ either weight-tying techniques, as seen in Equivariant Quantum Graph Circuits, or design observables with built-in symmetry properties \citep{mernyei2021eqgc}.
+
+Distributional readout for kernels represents another measurement approach. Methods like QEK repeatedly measure the final quantum state $|\psi_f(G;\Lambda)\rangle$ to approximate the probability distribution $P_\Lambda(G)$ \citep{schuld2019feature,havlivcek2019qkernels,kishi2021qsgk,henry2021quantum}. A positive semi-definite kernel function $K(G,G')$ is then defined based on these distributions, enabling classification through classical Support Vector Machines. As an alternative, QSGK implementations may utilize swap test circuits to directly estimate the overlap $\langle G|G'\rangle$ between graph state representations.
+
+Walk-based readout techniques leverage quantum walk dynamics for feature extraction. Quantum walks produce amplitude matrices $(U(t))_{ij}$ \citep{godsil2013avgmixing,coutinho2017avgmixing}. The corresponding transition probabilities $p_{i\to j}(t)=| (U(t))_{ji}|^2$ or their time-averaged values $\overline{M}_{ij}$ can serve dual purposes as both propagation weights and graph features. Depending on the implementation, these values may be calculated analytically from the spectral decomposition of the graph or empirically sampled using quantum hardware.
+
+\subsubsection*{Training and Optimization}
+
+Variational model training \citep{mitarai2018quantum,mcclean2018barren,cerezo2021barren,mernyei2021eqgc} follows a supervised learning approach where models are optimized using a loss function calculated across the training dataset. The supervised loss is defined as $\mathcal{L}(\theta)=\frac{1}{M}\sum_{m}\ell\big(f_\theta(G_m),y_m\big)$, where $f_\theta$ represents the model built from quantum expectation values. To compute gradients for this loss function, quantum models typically employ the parameter-shift rule:
+
+$$
+\frac{\partial}{\partial\theta}\langle O\rangle
+=\tfrac{1}{2}\Big(\langle O\rangle_{\theta+\frac{\pi}{2}}-\langle O\rangle_{\theta-\frac{\pi}{2}}\Big)
+$$
+
+These gradients are then back-propagated through any classical neural network components. To address training challenges like barren plateaus, architectural choices focusing on locality, equivariance, and shallow circuit depth are implemented. Notably, Equivariant Quantum Graph Circuits have demonstrated empirically favorable scaling properties. The QGCL approach provides explicit parameter-shift rule derivations for its LCU-based layer implementation \citep{zheng2021qgcn}.
+
+Kernel-model training approaches (QEK/QSGK) focus primarily on optimizing hyper-parameters represented by $\Lambda$, which may include the number of layers, evolution durations $t_\ell$, and the choice of Hamiltonian $H_G$. Additionally, these methods optimize the classical Support Vector Machine. In practice, researchers typically employ Bayesian optimization or random search techniques to identify optimal $\Lambda$ values, followed by training an SVM with a positive semi-definite kernel such as the Hellinger kernel. The computational complexity of these methods is predominantly determined by the sampling requirements needed to estimate either the probability distribution $P_\Lambda(G)$ in QEK \cite{henry2021quantum} or the state overlaps in QSGK \citep{kishi2021qsgk}.
+
+Walk-model training (QS-CNN/QSGCNN/QGRE) \citep{bai2018qsgcnn,zhang2019qscnn,dernbach2019qw_feature_coin} approaches vary based on their specific implementations. For QSGCNN and QS-CNN, the propagation operator $\overline{M}$ is determined by the graph structure and remains fixed. Training in these models focuses on optimizing the weights $W^{(\ell)}$ and classifier parameters. In contrast, QGRE train coin parameters $\theta$ through unrolled steps of the unitary operation $U=S(I\!\otimes\!C_\theta)$, with loss functions applied either to sequence summaries or terminal states.
+
+\subsection{Continuous-Time Quantum Walk (CTQW)}
+
+\subsubsection{Introduction}
+
+Classical message passing as a multiset refinement process that is provably limited by 1-WL expressivity. Continuous-time quantum walks \cite{herrman2019continuous} provide a principled alternative propagation model that replaces nonlinear aggregation with coherent, spectrum-guided evolution on the same graph. Given a simple graph and a Hermitian walk Hamiltonian $H$, typically the adjacency $A$ or a Laplacian $L$, node amplitudes evolve by Schr\"odinger dynamics
+
+$$
+U(t)=\exp (-\mathrm{i} H t), \quad |\psi(t)\rangle=U(t) |\psi(0)\rangle
+$$
+
+It aligns propagation with the eigenspaces of $H$, not with local multisets, which opens a route to features shaped by interference and spectral structure.
+
+\subsubsection{Bosonic Hamiltonian: Tight-Binding Model}
+
+We model propagation with a bosonic continuous-time quantum walk whose generator mirrors the graph's connectivity. Associate to each node $i$ a bosonic mode with creation and annihilation operators $a_i^\dagger,a_i$. The tight-binding Hamiltonian is
+
+$$
+H \;=\; \sum_{i<j} \Theta_{ij}\,\big(a_i^\dagger a_j + a_j^\dagger a_i\big)\;+\;\sum_{i=1}^N \varepsilon_i\,a_i^\dagger a_i,
+$$
+
+which produces coherent hopping along edges and optional on-site phases $\varepsilon_i$. The unitary evolution is $U(t)=\exp(-iHt)$ with $\Theta_{ij}$ reflect the graph structure . When $A$ is used, this is the canonical continuous-time quantum walk Hamiltonian; using the Laplacian $L$ yields an evolution that differs by a global phase on regular graphs. Both choices are align propagation with the spectrum of $H$.
+
+The state space is the bosonic Fock sector with total photon number $M$. Basis states are occupation vectors $\lvert n_1,\dots,n_N\rangle$ with $\sum_i n_i=M$. For $M=1$ the dynamics reduce to a single-particle walk generated by $A$ or $L$. For $M\ge2$ the evolution explores a Hilbert space of size $\binom{N+M-1}{M}$ and exhibits multi-boson interference, including bunching effects at beam splitters, which generates higher-order correlations even in the absence of explicit interaction terms. These many-particle walks have been analyzed theoretically and realized photonic-ally on integrated lattices \citep{campos1989beamsplitter,reck1994universal,clements2016optical,hong1987hom,aaronson2011bosonsampling}.
+
+\section{Method: Bosonic Tight-Binding QGNN}
+
+\subsection{Model definition}
+
+The Bosonic Tight-Binding QGNN model combines the above ideas into a graph learning algorithm implemented on a photonic quantum circuit. The model operates in three phases: state preparation, quantum walk evolution, and measurement.
+
+\subsubsection{State Preparation and Fock-State Encoding}
+
+We assign one bosonic mode to each node and initialize an M-photon product Fock state $|\psi_0\rangle=\bigotimes_{i=1}^N |n_i^0\rangle$ with $\sum_i n_i^0=M$. Here $|n_i\rangle$ denotes the number state of mode i, created by $(a_i^\dagger)^{n_i}/\sqrt{n_i!}$ acting on vacuum. This representation fixes particle number and cleanly separates mode structure from amplitude distributions, providing a natural starting point for multi-particle interference.
+
+To inject node features, we apply per-mode phase shifts $U_{\text{phase}}(\boldsymbol{\theta})=\exp\!\big(-i\sum_i \theta_i\, a_i^\dagger a_i\big)$ with $\theta_i=\alpha\,x_i$ for scaled feature $x_i$. The operation multiplies $|n_i\rangle$ by $e^{-i n_i \theta_i}$, so feature information modulates subsequent interference without altering photon number. These single-mode phases are standard linear-optical primitives implemented alongside beam splitters in universal interferometer meshes, which we later use to realize the tight-binding evolution \citep{campos1989beamsplitter,reck1994universal,clements2016optical}.
+
+Multi-photon inputs are essential for expressivity. With $M\ge2$, the evolution explores a Hilbert space of size $\binom{N+M-1}{M}$ and exhibits bosonic bunching and higher-order correlations that cannot arise with a single walker. Such states and their interference have been extensively studied and experimentally realized in photonic platforms, including in boson-sampling and multi-photon simulations \citep{hong1987hom,aaronson2011bosonsampling}.
+
+\subsubsection{Quantum Walk Message-Passing Layers}
+
+After state preparation, propagation is effected by $L$ short time steps of the bosonic tight-binding evolution. Let
+
+$$
+H = \sum_{(i,j)\in E} A_{ij}(a_i^\dagger a_j+a_j^\dagger a_i) + \sum_i \varepsilon_i a_i^\dagger a_i
+$$
+
+A single layer implements a first-order product formula for $e^{-iH\Delta t}$,
+
+$$
+U_\ell \approx \Bigg(\prod_{(i,j)\in E} e^{-i\theta_{ij}^{(\ell)}(a_i^\dagger a_j+a_j^\dagger a_i)}\Bigg) \Bigg(\prod_{i} e^{-i\varphi_i^{(\ell)} a_i^\dagger a_i}\Bigg),
+$$
+
+$$
+\theta_{ij}^{(\ell)}\approx A_{ij}\Delta t,\; \varphi_i^{(\ell)}\approx \varepsilon_i\Delta t,
+$$
+
+and layers yields with 
+
+$$
+U(L\Delta t)\approx\prod_{\ell=1}^{L} U_\ell = e^{-iH\,L\Delta t} + \mathcal{O}(L\,\Delta t^{\,2}),
+$$
+
+the Lie--Trotter approximation with first-order error controlled by commutators of edge and on-site terms. Each two-mode factor $e^{-i\theta(a_i^\dagger a_j+a_j^\dagger a_i)}$ is exactly the unitary of a lossless beam splitter mixing modes $i$ and $j$. Together with the single-mode phases $e^{-i\varphi a_i^\dagger a_i}$, these gates form the primitive components of linear optics. Each walk layer is as a beam-splitter and phase-shifter array parameterized by $\{\theta_{ij}^{(\ell)},\varphi_i^{(\ell)}\}$ \citep{campos1989beamsplitter,reck1994universal,clements2016optical}.
+
+\subsubsection{Permutation Equivariance and Invariance}
+
+Let $S_N$ act on node-indexed objects by permutation matrices $\Pi_\pi\in\{0,1\}^{N\times N}$ with $(\Pi_\pi)_{i,\pi(i)}=1$. A map $\Phi$ between node-indexed spaces is permutation equivariant if $\Phi(\Pi_\pi x)=\Pi_\pi \Phi(x)$ for all $\pi\in S_N$, and permutation invariant if $\rho(\Pi_\pi x)=\rho(x)$ for all $\pi\in S_N$. In our bosonic model the group $S_N$ acts unitarily on the Fock space by mode relabeling. Define $P_\pi$ by $P_\pi a_i P_\pi^\dagger=a_{\pi(i)}$ and $P_\pi a_i^\dagger P_\pi^\dagger=a_{\pi(i)}^\dagger$. State preparation is equivariant: if $|\psi_0\rangle=\bigotimes_{i}|n_i^0\rangle$ and $\pi$ relabels nodes, then $P_\pi|\psi_0\rangle=\bigotimes_{i}|n_{\pi^{-1}(i)}^0\rangle$. The tight-binding generator
+
+$$
+H(A,\varepsilon)=\sum_{i<j}A_{ij}\,(a_i^\dagger a_j+a_j^\dagger a_i)+\sum_i \varepsilon_i\,a_i^\dagger a_i
+$$
+
+transforms equivariantly with the graph and features: $P_\pi H(A,\varepsilon) P_\pi^\dagger=H(\Pi_\pi A \Pi_\pi^\top,\Pi_\pi \varepsilon)$. Consequently the evolution obeys
+
+$$
+P_\pi\,U_{A,\varepsilon}(t)\,P_\pi^\dagger
+= P_\pi e^{-iH(A,\varepsilon)t} P_\pi^\dagger
+= e^{-iH(\Pi_\pi A \Pi_\pi^\top,\Pi_\pi \varepsilon)t}
+= U_{\Pi_\pi A \Pi_\pi^\top,\Pi_\pi \varepsilon}(t),
+$$
+
+so the map $(A,\varepsilon)\mapsto U_{A,\varepsilon}(t)$ is permutation equivariant. This matches the group equivariance used in geometric deep learning for symmetry-preserving architectures.
+
+Graph-level outputs are obtained by applying permutation-invariant measurements or statistics to the final state. Let $n=(n_1,\dots,n_N)$ be the photon-count vector drawn from $P_{A,\varepsilon}(\cdot)=|\langle n|U_{A,\varepsilon}(t)|\psi_0\rangle|^2$. Any symmetric observable $f$ with $f(n)=f(\Pi_\pi n)$ produces a permutation-invariant readout $z_G=\mathbb{E}_{n\sim P_{A,\varepsilon}}[f(n)]$. Because $P_\pi U_{A,\varepsilon}(t)P_\pi^\dagger=U_{\Pi_\pi A \Pi_\pi^\top,\Pi_\pi \varepsilon}(t)$, isomorphic graphs $G$ and $G'$ related by $\pi$ yield identical distributions for any symmetric $f$, hence identical $z_G=z_{G'}$. This realizes the Deep-Sets principle at the measurement layer and ensures graph-isomorphism invariance of the model's outputs \citep{zaheer2017deepsets}.
+
+The quantum walk layer $|\psi\rangle\mapsto U_{A,\varepsilon}(\Delta t)|\psi\rangle$ is $S_N$-equivariant by the conjugation identity above, and any subsequent node-wise symmetric pooling or graph-level readout is $S_N$-invariant. This equivariant layers combining with invariant measurements guarantees isomorphism-invariant objectives in both quantum graph-learning architectures.
+
+\subsubsection{Measurement and Output: Symmetric Observables}
+
+Since the entire bosonic quantum walk circuit is built to be permutation-equivariant, its outputs must be processed through permutation-invariant observables to yield meaningful graph-level representations. Each experimental shot produces an occupation vector
+
+$$
+\mathbf{n} = (n_1, \dots, n_N), \quad \sum_{i=1}^N n_i = M,
+$$
+
+where $n_i$ denotes the number of photons detected in mode (node) $i$. To ensure invariance under vertex relabeling, we derive features that depend only on the multiset of counts, not on their ordering.
+
+One natural choice is to compute the histogram of occupation numbers by sorting the counts:
+
+$$
+\lambda(\mathbf{n}) = \mathrm{sort}(n_1, \dots, n_N).
+$$
+
+The probability distribution $p_\lambda = \Pr[\lambda(\mathbf{n}) = \lambda]$ constitutes a permutation-invariant summary, since sorting removes any dependence on which mode each count came from.
+
+Alternatively, one may compute {power-sum moments} of the photon counts. Given the k-th power-sum statistic
+
+$$
+S_k = \sum_{i=1}^N n_i^k,
+$$
+
+its empirical expectation over R runs is
+
+$$
+\langle S_k \rangle_R = \frac{1}{R} \sum_{r=1}^R S_k^{(r)}.
+$$
+
+These summaries capture global occupancy properties and remain invariant under any permutation of node labels, as they are symmetric functions on the counts.
+
+For deeper sensitivity to multi-photon occupancy and collision effects, factorial moments can be used:
+
+$$
+F_k = \sum_{i=1}^N \langle (n_i)_k \rangle,
+\quad (n_i)_k = n_i(n_i - 1) \cdots (n_i - k + 1).
+$$
+
+Such moments incorporate dependencies across photons in the same mode while still respecting permutation invariance.
+
+These symmetric observables provide tractable ways to distinguish non-isomorphic graphs when their induced output distributions differ. For instance, a difference in $p_\lambda$, $\langle S_k \rangle$, or $F_k$ guarantees non-isomorphism under the specified circuit and measurement framework.
+
+\subsection{Walk Hyperparameter Analysis}
+
+The bosonic QGNN model has two key hyperparameters that control its expressive power: the walk depth $L$ which known as number of layers or time-steps in the quantum walk and the walk width $M$ as number of photons. These can be viewed as resources that the model uses to distinguish complex graph structures. In this section we analyze the role of $L$ and $M$ in the model’s ability to discriminate graphs.
+
+\subsubsection{Walk depth $L$}
+
+We first consider the effect of the walk depth $L$, which corresponds to number of discrete time-steps in the continuous-time quantum walk. Let $A$ be the graph's adjacency matrix. We define a real symmetric one-particle generator $K = g(A)$ by applying an entrywise function $g: \mathbb{R} \to \mathbb{R}$ to $A$. The single-particle evolution on the graph is then given by the unitary operator
+
+$$
+T(t)\;=\;e^{-iKt},\quad t\in\mathbb R.
+$$
+
+which propagates a single boson across the graph’s modes. In second quantization, the number-preserving many-boson Hamiltonian is
+
+$$
+\widehat H \;=\; \sum_{i,j=1}^{N} K_{ij}\,a_i^\dagger a_j,
+$$
+
+and passive linear-optical circuits act as $U^\dagger a\,U = T a$ for some unitary $T$ on modes; hence the many-boson spectrum is determined by the one-body spectrum of $K$.
+
+An important characterization of the continuous-time walk is that it can be expanded in a power series of the matrix $K$. We first obtain a Chebyshev representation of $e^{-iKt}$. Let $\sigma(K)\subseteq[a,b]$. Define $c=(a+b)/2$, $\beta=(b-a)/2>0$, and normalize $\widehat K \;=\;\frac{K-cI}{\beta}, \sigma(\widehat K)\subseteq[-1,1].$
+ Write $K=V\Lambda V^\ast$ with $\Lambda=\operatorname{diag}(\lambda_1,\dots,\lambda_N)$ and $V$ unitary. Put $\cos\theta_j=(\lambda_j-c)/\beta\in[-1,1]$. For scalars,
+
+$$
+e^{-i\lambda_j t} \;=\; e^{-ict}\,e^{-i\beta t\cos\theta_j}.
+$$
+
+The Jacobi-Anger identity gives $e^{-iz\cos\theta}=J_0(z)+2\sum_{m\ge1}(-i)^mJ_m(z)\cos(m\theta)$, and $\cos(m\theta)=T_m(\cos\theta)$. Hence
+
+$$
+e^{-i\lambda_j t} \;=\; e^{-ict}\!\left[J_0(\beta t)+2\sum_{m\ge1}(-i)^m J_m(\beta t)\,T_m\!\Big(\tfrac{\lambda_j-c}{\beta}\Big)\right],
+$$
+
+and,
+
+$$
+e^{-i K t}=e^{-i c t}\left[J_0(\beta t) I+2 \sum_{m \geq 1}(-i)^m J_m(\beta t) T_m(\widehat{K})\right],
+$$
+
+where $J_m$ is the Bessel function of the first kind and $T_m$ is the Chebyshev polynomial of the first kind. This Chebyshev--Bessel expansion shows that the continuous-time evolution can be viewed as a superposition of contributions from polynomials $T_m(K)$ of various degrees $m$. In essence, evolving for time $t$ explores polynomial functions of $K$ up to arbitrarily high degree \citep{tal1984chebyshev,howlett1966handbook}.
+
+We can further interpret depth in terms of an equivalent discrete-time dynamic. From Ref. \cite{apers2024quantum}, we have
+
+$$
+U^n=\left[\begin{array}{cc}T_n(P) & \sqrt{I-P^2} U_{n-1}(P) \\-\sqrt{I-P^2} U_{n-1}(P) & T_n(P)\end{array}\right]
+$$
+
+for arbitrary initials $(w(0), v(0))$,
+
+$$
+\begin{aligned}
+w(n) & =T_n(P) w(0)+\sqrt{I-P^2} U_{n-1}(P) v(0) \\
+v(n) & =-\sqrt{I-P^2} U_{n-1}(P) w(0)+T_n(P) v(0)
+\end{aligned}
+$$
+
+Now set
+
+$$
+x_n:=w(n), \quad x_0=w(0), \quad x_1=w(1)=P w(0)+\sqrt{I-P^2} v(0)
+$$
+
+Then
+
+$$
+x_1-P x_0=\sqrt{I-P^2} v(0)
+$$
+
+and it becomes
+
+$$
+x_n=T_n(P) x_0+U_{n-1}(P)\left(x_1-P x_0\right)
+$$
+
+For random-walk, matrices $P$ and the initial condition $x_1=Px_0$, give $x_t=T_t(P)x_0$. This equates the walk depth $t$ with the polynomial degree of $T_t$ acting on the graph operator $P$. Therefore, an $L$-layer quantum walk effectively generates features that are polynomial functions of the operator $K$ up to degree $L$. Increasing depth allows the model to incorporate information from longer-range connections and higher-order graph connectivity patterns.
+
+\textbf{Lemma (CTQW as a Bessel superposition of DT Chebyshev iterates).} Let $K$ be Hermitian with $\widehat{K}=(K-c I) / \beta$ as above and $x_1=\widehat{K} x_0$. Then for all $t$,
+
+$$
+e^{-i K t} x_0=e^{-i c t}\left[J_0(\beta t) T_0(\widehat{K}) x_0+2 \sum_{m \geq 1}(-i)^m J_m(\beta t) T_m(\widehat{K}) x_0\right]
+$$
+
+In particular, the continuous-time state is a Bessel-weighted sum of the discrete states $\{x_m= T_m(\widehat{K}) x_0\}$. 
+
+Depth $L$ provides ceiling expressive advantages once polynomial degree exceeds a certain limit imposed by the graph’s spectrum. For a generator, we now show that varying $t$ can only move within a finite-dimensional commutative algebra determined by the minimal polynomial of $K$.
+
+\textbf{Definition (Minimal polynomial).} For $A\in\mathbb C^{N\times N}$, the minimal polynomial $m_A$ is the monic polynomial of least degree with $m_A(A)=0$. If $A$ is diagonalizable with distinct eigenvalues $\lambda_1,\dots,\lambda_d$, then 
+
+$$
+m_A(z)=\prod_{r=1}^d (z-\lambda_r),
+$$
+
+$\deg m_A = d$ equals the number of distinct eigenvalues. 
+
+\textbf{Theorem (expressive ceiling).} Let $K$ be Hermitian with minimal polynomial $m_K$ of degree $d$. Then
+
+$$
+ e^{-iKt}\in \mathbb C[K]\;=\;\operatorname{span}\{I,K,\dots,K^{d-1}\}\quad\text{for all }t\in\mathbb R,
+$$
+
+and $\dim \mathbb C[K]=d$. Consequently, depth cannot expand the expressive space beyond this $d$-dimensional commutative algebra.
+
+\textbf{Proof.} For diagonalizable matrix $K=V\operatorname{diag}(\lambda_r)V^\ast$, the Lagrange--Sylvester interpolation formula provides spectral projectors $\Pi_r(K)$, each a polynomial in $K$ of degree at most $d-1$, with $\sum_r\Pi_r(K)=I$ and $K=\sum_r\lambda_r\Pi_r(K)$. For any scalar function $f$ defined on $\{\lambda_r\}$,
+
+$$
+f(K) \;=\; \sum_{r=1}^d f(\lambda_r)\,\Pi_r(K)\in\operatorname{span}\{I,K,\dots,K^{d-1}\}.
+$$
+
+Taking $f(z)=e^{-itz}$ yields the claim. Since $\mathbb C[K]\cong \mathbb C[z]/\langle m_K\rangle$, its dimension is $d$ \citep{higham2008functions}. 
+
+Once the walk depth is large enough to produce all polynomial powers up to $K^{d-1}$, any further depth adds no new things in feature space. The model's state after $L$ layers (for $L \ge d-1$) already lives in the full algebra generated by $K$. This means a single-particle quantum walk cannot distinguish two graphs that share the same spectrum of $K$.  
+
+\subsubsection{Walk Width $M$}
+
+Walk width $M$ is the number of identical bosons injected into the walk. Intuitively, using more photons allows the QGNN to probe multi-node interactions through quantum interference. 
+
+Consider the eigen-decomposition of the one-particle operator, let $\lambda_1,\dots,\lambda_d$ be the distinct eigenvalues of $K$, and let $E_r$ be the eigenspace corresponding to $\lambda_r$, of dimension $m_r = \dim E_r$. We choose an orthonormal basis $\{b_{r,k}\}_{k=1}^{m_r}$ for each eigenspace. One can define number operators $\widehat{N}_r = \sum_{k=1}^{m_r} b_{r,k}^\dagger b_{r,k}$ counting the number of photons occupying eigenmode $r$. The many-boson Hamiltonian $\widehat{H}$ can then be written as a direct sum of these mode contributions
+
+$$
+\widehat{H}=\sum_{r=1}^d \lambda_r \widehat{N}_r
+$$
+
+where $\widehat{H}$ is diagonal in the basis of Fock states labeled by occupation numbers $n_r$ in each eigenmode. A basis state with occupation numbers $(n_1,n_2,\dots,n_d)$ has an energy eigenvalue
+
+$$
+\Lambda=\sum_{r=1}^d \lambda_r n_r, \quad \sum_{r=1}^d n_r=M
+$$
+
+Accordingly, the minimal polynomial of $\widehat{H}$ restricted to the $M$-boson subspace has degree at most $\binom{d+M-1}{M}$. We can summarize this result as,
+
+$$
+d_M \;\le\; \binom{d+M-1}{M}, \quad e^{-i\widehat H t}\in \operatorname{span}\{I,\widehat H,\dots,\widehat H^{\,d_M-1}\}
+$$
+
+for the $M$-boson sector. Here $d_M$ is the number of distinct eigenenergy values in the $M$-boson spectrum. This shows that increasing the width $M$  expands the dimensionality of the feature space, from $d$ up to $\binom{d+M-1}{M}$ as an upper bound. THis means more bosons allow the QGNN to encode increasingly complex joint features of the graph, by exploring simultaneous walks that interfere over multiple nodes. Each additional boson introduces higher-order correlations, enabling the detection of structural patterns that are hard to any single-particle analysis \citep{hong1987hom,aaronson2011bosonsampling}.
+
+\section{Dataset Selection}
+
+To evaluate the expressivity and practical performance of the Bosonic Tight-Binding QGNN, we select a diverse set of widely recognized graph classification benchmarks: MUTAG, PROTEINS, and NCI1, drawn primarily from cheminformatics and bioinformatics. These datasets vary in graph size, structural complexity, and labeling challenges, providing a robust testbed for assessing how quantum walk-based models handle real-world structural variance.
+
+MUTAG is a classic dataset used extensively in graph learning research \citep{debnath1991mutag}. It comprises 188 nitroaromatic chemical compounds, each represented as a graph where nodes denote atoms such as C, N, O, etc. and edges represent chemical bonds with types like single, double, aromatic~. Each graph is labeled by its mutagenicity, i.e.\ whether it causes mutations in \emph{Salmonella typhimurium}. MUTAG’s popularity stems from its moderate size, interpretable yet nontrivial structural patterns, and node/edge labels, which pose meaningful challenges for representation learning methods~. Evaluating on MUTAG helps validate whether the quantum model captures chemically relevant multi-atom interactions and surpasses the 1-WL expressivity ceiling in a well-understood domain.
+
+The PROTEINS dataset includes 1,113 protein graphs classified as enzymes or non-enzymes \citep{dobson2003enzymes,borgwardt2005proteins}. Nodes represent amino acids, while edges link spatially or sequentially proximate residues~. It features multiple node types and rich relational structure derived from protein tertiary configurations. Because proteins can exhibit subtle, long-range structural dependencies, PROTEINS tests whether the QGNN’s depth-$L$, width-$M$ interplay and interference-based feature extraction can meaningfully interpret such complex biological graphs.
+
+NCI1 is derived from the National Cancer Institute’s screening programs and consists of chemical compound graphs labeled by activity—specifically, whether compounds are active against non-small cell lung cancer \citep{wale2008nci1}. Unlike MUTAG, NCI1 is substantially larger, includes more diverse chemical structures, and represents a biochemically relevant classification problem. Performance on NCI1 reflects the model’s scalability, ability to generalize over larger, heterogeneous graph populations, and robustness in modeling subtle structure-function relationships beyond toy-scale benchmarks.
+
+Selecting this triad, MUTAG, PROTEINS, NCI1, ensures coverage across graph sizes from small to medium-large and difficulty levels. MUTAG tests foundational distinguishing power; PROTEINS examines structural complexity and long-range dependencies; NCI1 assesses scale and real-world biochemical relevance. This combination provides both theoretical and empirical insight into how bosonic quantum message passing, multi-boson interference, and the walk hyperparameters $L$, $M$ contribute to expressivity and performance.
+
+Moreover, these datasets have been benchmarks in modern GNN and graph kernel literature (e.g., GIN, DGCNN, graph kernel methods)\citep{xu2019howpowerful,zhang2018dgcnn,shervashidze2011wl}, which enables direct comparison against both classical 1-WL-limited and higher-expressivity baselines. In sum, the chosen datasets afford rigorous validation, interpretability, and comparability, positioning the evaluation of Bosonic QGNN within the broader graph learning studies.
+
+\bibliographystyle{unsrt}
+\bibliography{bosonic_qgnn_refs}
+\end{document}

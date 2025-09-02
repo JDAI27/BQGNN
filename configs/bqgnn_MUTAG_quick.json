@@ -1,0 +1,22 @@
+{
+  "arch": "bqgnn",
+  "dataset": "MUTAG",
+  "seed": 41,
+  "epochs": 50,
+  "batch_size": 32,
+  "init_lr": 0.001,
+  "lr_reduce_factor": 0.5,
+  "lr_schedule_patience": 10,
+  "min_lr": 1e-6,
+  "weight_decay": 0.0,
+  "features": "degree",
+  "model": {
+    "num_layers": 3,
+    "spectral_moments": 4,
+    "times": [0.2, 0.6, 1.0],
+    "head_hidden": 64,
+    "hamiltonian": "A",
+    "bosons": 1
+  }
+}
+

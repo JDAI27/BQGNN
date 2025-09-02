@@ -1,0 +1,28 @@
+{
+  "config": {
+    "dataset": "NCI1",
+    "seed": 41,
+    "epochs": 20,
+    "batch_size": 64,
+    "init_lr": 0.001,
+    "lr_reduce_factor": 0.5,
+    "lr_schedule_patience": 10,
+    "min_lr": 1e-06,
+    "weight_decay": 0.0,
+    "features": "degree",
+    "model": {
+      "hidden_dim": 128,
+      "num_layers": 4,
+      "dropout": 0.0,
+      "learn_eps": true,
+      "readout": "sum"
+    }
+  },
+  "result": {
+    "dataset": "NCI1",
+    "mean_train_acc": 0.7319005136523384,
+    "std_train_acc": 0.053491519555044956,
+    "mean_val_acc": 0.5953771289537713,
+    "std_val_acc": 0.03337947682612312
+  }
+}

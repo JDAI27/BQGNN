@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your First Quantum Layers &mdash; merlinquantum 0.0.post53 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/style.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/fonts.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/Merlin icon white 32x32.ico"/>
+      <script src="../_static/jquery.js"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+      <script src="../_static/doctools.js"></script>
+      <script src="../_static/sphinx_highlight.js"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="User Guide" href="../user_guide/index.html" />
+    <link rel="prev" title="Basic Concepts" href="basic_concepts.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            merlinquantum
+              <img src="../_static/Merlin logo white 160x160.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Quickstart</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_concepts.html">Basic Concepts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Your First Quantum Layers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research/index.html">Expert Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/index.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">merlinquantum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Quickstart</a></li>
+      <li class="breadcrumb-item active">Your First Quantum Layers</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/merlinquantum/merlin" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+               
+  <section id="your-first-quantum-layers">
+<h1>Your First Quantum Layers<a class="headerlink" href="#your-first-quantum-layers" title="Permalink to this heading"></a></h1>
+<p>Merlin provides three approaches to create quantum neural networks, from simple to advanced:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#method-1-simple-api-easiest"><span class="std std-ref">Simple API</span></a> : Quick start with minimal configuration</p></li>
+<li><p><a class="reference internal" href="#method-2-factory-method-intermediate"><span class="std std-ref">Factory Method</span></a> : More control with pre-built architectures</p></li>
+<li><p><a class="reference internal" href="#method-3-direct-circuit-definition-advanced"><span class="std std-ref">Direct Circuit Definition</span></a> : Full control over quantum circuit design</p></li>
+</ol>
+<p>We’ll start with the easiest approach and progress to more advanced methods.</p>
+<section id="method-1-simple-api-easiest">
+<h2>Method 1: Simple API (Easiest)<a class="headerlink" href="#method-1-simple-api-easiest" title="Permalink to this heading"></a></h2>
+<p>The simplest way to create a quantum layer is using the <code class="docutils literal notranslate"><span class="pre">.simple()</span></code> method. This is perfect for beginners who want to quickly integrate quantum processing into their neural networks.</p>
+<section id="basic-example">
+<h3>Basic Example<a class="headerlink" href="#basic-example" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">merlin</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ML</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">HybridIrisClassifier</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hybrid model for Iris classification:</span>
+<span class="sd">    - Classical layer reduces 4 features to 3</span>
+<span class="sd">    - Quantum layer processes the 3 features</span>
+<span class="sd">    - Classical output layer for 3-class classification</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HybridIrisClassifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Classical preprocessing layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classical_in</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">()</span>  <span class="c1"># Normalize to [-1, 1] for quantum layer</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Quantum layer</span>
+        <span class="c1"># Just specify input size and approximate parameter count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantum</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">QuantumLayer</span><span class="o">.</span><span class="n">simple</span><span class="p">(</span>
+            <span class="n">input_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>      <span class="c1"># 3 input features</span>
+            <span class="n">n_params</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>      <span class="c1"># ~100 quantum parameters</span>
+            <span class="n">shots</span><span class="o">=</span><span class="mi">10000</span>        <span class="c1"># Number of measurements</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Classical output layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classical_out</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantum</span><span class="o">.</span><span class="n">output_size</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># 3 classes</span>
+        <span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Model Architecture:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Input: 4 features&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Classical preprocessing: 4 → 3&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Quantum layer: 3 → </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">quantum</span><span class="o">.</span><span class="n">output_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Classical output: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">quantum</span><span class="o">.</span><span class="n">output_size</span><span class="si">}</span><span class="s2"> → 3 classes&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># Preprocess with classical layer</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classical_in</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="c1"># Process through quantum layer</span>
+        <span class="c1"># Note: quantum layer expects inputs in [0, 1], so we shift tanh output</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># Convert from [-1, 1] to [0, 1]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="c1"># Final classification</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classical_out</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+</section>
+<section id="training-the-simple-model">
+<h3>Training the Simple Model<a class="headerlink" href="#training-the-simple-model" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">HybridIrisClassifier</span><span class="p">()</span>
+
+<span class="c1"># Standard PyTorch training</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+<span class="c1"># Training loop (standard PyTorch)</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="method-2-factory-method-intermediate">
+<h2>Method 2: Factory Method (Intermediate)<a class="headerlink" href="#method-2-factory-method-intermediate" title="Permalink to this heading"></a></h2>
+<p>For more control over the quantum architecture while still using pre-built circuits, use the factory method approach.</p>
+<section id="creating-quantum-layers-with-factories">
+<h3>Creating Quantum Layers with Factories<a class="headerlink" href="#creating-quantum-layers-with-factories" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">merlin</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhotonicBackend</span><span class="p">,</span> <span class="n">CircuitType</span><span class="p">,</span> <span class="n">StatePattern</span><span class="p">,</span> <span class="n">AnsatzFactory</span><span class="p">,</span> <span class="n">QuantumLayer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">merlin</span><span class="w"> </span><span class="kn">import</span> <span class="n">OutputMappingStrategy</span>
+
+<span class="c1"># Define the quantum experiment configuration</span>
+<span class="n">n_modes</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">n_photons</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">input_size</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="c1"># Create experiment with Series circuit</span>
+<span class="n">photonicbackend</span> <span class="o">=</span> <span class="n">PhotonicBackend</span><span class="p">(</span>
+    <span class="n">circuit_type</span><span class="o">=</span><span class="n">CircuitType</span><span class="o">.</span><span class="n">SERIES</span><span class="p">,</span>
+    <span class="n">n_modes</span><span class="o">=</span><span class="n">n_modes</span><span class="p">,</span>
+    <span class="n">n_photons</span><span class="o">=</span><span class="n">n_photons</span><span class="p">,</span>
+    <span class="n">reservoir_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>         <span class="c1"># Non-trainable quantum layer</span>
+    <span class="n">use_bandwidth_tuning</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># No bandwidth tuning</span>
+    <span class="n">state_pattern</span><span class="o">=</span><span class="n">StatePattern</span><span class="o">.</span><span class="n">PERIODIC</span>
+<span class="p">)</span>
+
+<span class="c1"># Create ansatz with automatic output size</span>
+<span class="n">ansatz</span> <span class="o">=</span> <span class="n">AnsatzFactory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">PhotonicBackend</span><span class="o">=</span><span class="n">photonicbackend</span><span class="p">,</span>
+    <span class="n">input_size</span><span class="o">=</span><span class="n">input_size</span><span class="p">,</span>
+    <span class="c1"># output_size not specified - will be calculated automatically unless specified</span>
+    <span class="n">output_mapping_strategy</span><span class="o">=</span><span class="n">OutputMappingStrategy</span><span class="o">.</span><span class="n">NONE</span>
+<span class="p">)</span>
+
+<span class="c1"># Create quantum layer</span>
+<span class="n">quantum_layer</span> <span class="o">=</span> <span class="n">QuantumLayer</span><span class="p">(</span>
+    <span class="n">input_size</span><span class="o">=</span><span class="n">input_size</span><span class="p">,</span>
+    <span class="n">ansatz</span><span class="o">=</span><span class="n">ansatz</span><span class="p">,</span>
+    <span class="n">shots</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>           <span class="c1"># Number of measurement shots</span>
+    <span class="n">no_bunching</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="available-circuit-types">
+<h3>Available Circuit Types<a class="headerlink" href="#available-circuit-types" title="Permalink to this heading"></a></h3>
+<p>merlin provides several pre-built circuit architectures:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CircuitType.SERIES</span></code>: Gan et al paper circuit design implementation</p></li>
+<li><p>Other circuit types available in the library</p></li>
+</ul>
+</section>
+<section id="state-patterns">
+<h3>State Patterns<a class="headerlink" href="#state-patterns" title="Permalink to this heading"></a></h3>
+<p>Control how photons are distributed:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">StatePattern.PERIODIC</span></code>: 1 photon every 2 modes i.e 101010</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StatePattern.SEQUENTIAL</span></code>: photons injected into the first modes seen i.e 111000</p></li>
+</ul>
+</section>
+<section id="using-factory-created-layers-in-models">
+<h3>Using Factory-Created Layers in Models<a class="headerlink" href="#using-factory-created-layers-in-models" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">FactoryHybridModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Classical preprocessing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preprocess</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+        <span class="c1"># Quantum layer from factory</span>
+        <span class="n">photonicbackend</span> <span class="o">=</span> <span class="n">PhotonicBackend</span><span class="p">(</span>
+            <span class="n">circuit_type</span><span class="o">=</span><span class="n">CircuitType</span><span class="o">.</span><span class="n">SERIES</span><span class="p">,</span>
+            <span class="n">n_modes</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">n_photons</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">state_pattern</span><span class="o">=</span><span class="n">StatePattern</span><span class="o">.</span><span class="n">PERIODIC</span>
+        <span class="p">)</span>
+
+        <span class="n">ansatz</span> <span class="o">=</span> <span class="n">AnsatzFactory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">PhotonicBackend</span><span class="o">=</span><span class="n">photonicbackend</span><span class="p">,</span>
+            <span class="n">input_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">output_size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">output_mapping_strategy</span><span class="o">=</span><span class="n">OutputMappingStrategy</span><span class="o">.</span><span class="n">LINEAR</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantum</span> <span class="o">=</span> <span class="n">QuantumLayer</span><span class="p">(</span>
+            <span class="n">input_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">ansatz</span><span class="o">=</span><span class="n">ansatz</span><span class="p">,</span>
+            <span class="n">shots</span><span class="o">=</span><span class="mi">5000</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Classical output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantum</span><span class="o">.</span><span class="n">output_size</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Normalize to [0, 1]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="method-3-direct-circuit-definition-advanced">
+<h2>Method 3: Direct Circuit Definition (Advanced)<a class="headerlink" href="#method-3-direct-circuit-definition-advanced" title="Permalink to this heading"></a></h2>
+<p>For complete control over the quantum circuit, define it directly using Perceval.</p>
+<section id="circuit-definition">
+<h3>Circuit Definition<a class="headerlink" href="#circuit-definition" title="Permalink to this heading"></a></h3>
+<p>The quantum circuit consists of three main parts:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">perceval</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pcvl</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_quantum_circuit</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="c1"># 1. Left interferometer - trainable transformation</span>
+    <span class="n">wl</span> <span class="o">=</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">GenericInterferometer</span><span class="p">(</span>
+        <span class="n">m</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">BS</span><span class="p">()</span> <span class="o">//</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">PS</span><span class="p">(</span><span class="n">pcvl</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;theta_li</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span> <span class="o">//</span>
+                 <span class="n">pcvl</span><span class="o">.</span><span class="n">BS</span><span class="p">()</span> <span class="o">//</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">PS</span><span class="p">(</span><span class="n">pcvl</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;theta_lo</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)),</span>
+        <span class="n">shape</span><span class="o">=</span><span class="n">pcvl</span><span class="o">.</span><span class="n">InterferometerShape</span><span class="o">.</span><span class="n">RECTANGLE</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 2. Input encoding - maps classical data to quantum parameters</span>
+    <span class="n">c_var</span> <span class="o">=</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">Circuit</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>  <span class="c1"># 4 input features</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;px</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">c_var</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">PS</span><span class="p">(</span><span class="n">px</span><span class="p">))</span>
+
+    <span class="c1"># 3. Right interferometer - trainable transformation</span>
+    <span class="n">wr</span> <span class="o">=</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">GenericInterferometer</span><span class="p">(</span>
+        <span class="n">m</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">BS</span><span class="p">()</span> <span class="o">//</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">PS</span><span class="p">(</span><span class="n">pcvl</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;theta_ri</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span> <span class="o">//</span>
+                 <span class="n">pcvl</span><span class="o">.</span><span class="n">BS</span><span class="p">()</span> <span class="o">//</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">PS</span><span class="p">(</span><span class="n">pcvl</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;theta_ro</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)),</span>
+        <span class="n">shape</span><span class="o">=</span><span class="n">pcvl</span><span class="o">.</span><span class="n">InterferometerShape</span><span class="o">.</span><span class="n">RECTANGLE</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Combine all components</span>
+    <span class="k">return</span> <span class="n">wl</span> <span class="o">//</span> <span class="n">c_var</span> <span class="o">//</span> <span class="n">wr</span>
+</pre></div>
+</div>
+<p><strong>Key Components</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pcvl.BS()</span></code>: Beam splitter for quantum interference</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pcvl.PS(pcvl.P(&quot;name&quot;))</span></code>: Phase shifter with trainable parameter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pcvl.GenericInterferometer</span></code>: Creates complex interference patterns</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pcvl.Circuit</span></code>: Container for quantum components</p></li>
+</ul>
+</section>
+<section id="create-quantum-layer-from-circuit">
+<h3>Create Quantum Layer from Circuit<a class="headerlink" href="#create-quantum-layer-from-circuit" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create quantum layer</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># 6 optical modes</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">create_quantum_circuit</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">quantum_layer</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">QuantumLayer</span><span class="p">(</span>
+    <span class="n">input_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>                                              <span class="c1"># 4 input features</span>
+    <span class="n">output_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>                                             <span class="c1"># 3 output classes</span>
+    <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span>                                           <span class="c1"># Quantum circuit</span>
+    <span class="n">trainable_parameters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;theta&quot;</span><span class="p">],</span>                            <span class="c1"># Parameters to train</span>
+    <span class="n">input_parameters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;px&quot;</span><span class="p">],</span>                                   <span class="c1"># Input encoding parameters</span>
+    <span class="n">input_state</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>                           <span class="c1"># Initial photon state</span>
+    <span class="n">output_mapping_strategy</span><span class="o">=</span><span class="n">ML</span><span class="o">.</span><span class="n">OutputMappingStrategy</span><span class="o">.</span><span class="n">LINEAR</span>    <span class="c1"># Output mapping</span>
+<span class="p">)</span>
+
+<span class="c1"># Test the layer</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Batch of 10 samples, 4 features each</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">quantum_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input shape: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>      <span class="c1"># [10, 4]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output shape: </span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># [10, 3]</span>
+</pre></div>
+</div>
+</section>
+<section id="understanding-parameters">
+<h3>Understanding Parameters<a class="headerlink" href="#understanding-parameters" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">quantum_layer</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">QuantumLayer</span><span class="p">(</span>
+    <span class="n">input_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>                                              <span class="c1"># Classical input features</span>
+    <span class="n">output_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>                                             <span class="c1"># Desired output size</span>
+    <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span>                                           <span class="c1"># Quantum circuit</span>
+    <span class="n">trainable_parameters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;theta&quot;</span><span class="p">],</span>                            <span class="c1"># Which parameters to train</span>
+    <span class="n">input_parameters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;px&quot;</span><span class="p">],</span>                                   <span class="c1"># Input encoding parameters</span>
+    <span class="n">input_state</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">%</span> <span class="mi">2</span><span class="p">),</span>           <span class="c1"># Initial photon distribution</span>
+    <span class="n">no_bunching</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>                                         <span class="c1"># Allow photon bunching</span>
+    <span class="n">output_mapping_strategy</span><span class="o">=</span><span class="n">ML</span><span class="o">.</span><span class="n">OutputMappingStrategy</span><span class="o">.</span><span class="n">LINEAR</span>    <span class="c1"># How to map quantum output</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameter Explanation</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">trainable_parameters</span></code>: Parameters updated during backpropagation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">input_parameters</span></code>: Parameters that encode classical input data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">input_state</span></code>: Initial photon configuration (e.g., [1,0,1,0,0,0] = photons in modes 0,2)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">no_bunching</span></code>: Whether multiple photons can occupy the same mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_mapping_strategy</span></code>: How quantum probabilities become classical outputs</p></li>
+</ul>
+</section>
+<section id="complete-hybrid-network-example">
+<h3>Complete Hybrid Network Example<a class="headerlink" href="#complete-hybrid-network-example" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">AdvancedHybridClassifier</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_modes</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Classical preprocessing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classical_input</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Reduce to quantum layer input size</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Create quantum circuit</span>
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">create_quantum_circuit</span><span class="p">(</span><span class="n">n_modes</span><span class="p">)</span>
+
+        <span class="c1"># Quantum processing layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantum_layer</span> <span class="o">=</span> <span class="n">ML</span><span class="o">.</span><span class="n">QuantumLayer</span><span class="p">(</span>
+            <span class="n">input_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">output_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+            <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span>
+            <span class="n">trainable_parameters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;theta&quot;</span><span class="p">],</span>
+            <span class="n">input_parameters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;px&quot;</span><span class="p">],</span>
+            <span class="n">input_state</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_modes</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_modes</span> <span class="o">%</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="n">output_mapping_strategy</span><span class="o">=</span><span class="n">ML</span><span class="o">.</span><span class="n">OutputMappingStrategy</span><span class="o">.</span><span class="n">LINEAR</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Classical output layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># Classical preprocessing</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classical_input</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="c1"># Normalize for quantum layer (required: inputs must be in [0,1])</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="c1"># Quantum transformation</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantum_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="c1"># Classical output</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Create and test model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AdvancedHybridClassifier</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_modes</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Batch of 16 samples</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model output shape: </span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># [16, 3]</span>
+</pre></div>
+</div>
+</section>
+<section id="training-the-advanced-model">
+<h3>Training the Advanced Model<a class="headerlink" href="#training-the-advanced-model" title="Permalink to this heading"></a></h3>
+<p>Train your hybrid model with standard PyTorch workflows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># Generate synthetic dataset</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">n_informative</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="c1"># Prepare data</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+
+<span class="c1"># Setup training</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AdvancedHybridClassifier</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+<span class="c1"># Training loop</span>
+<span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="c1"># Forward pass</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="c1"># Backward pass</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="c1"># Evaluation</span>
+    <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">test_outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+            <span class="n">test_loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">test_outputs</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+            <span class="n">test_acc</span> <span class="o">=</span> <span class="p">(</span><span class="n">test_outputs</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">: Loss=</span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, Test Loss=</span><span class="si">{</span><span class="n">test_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, Test Acc=</span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+ 
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="basic_concepts.html" class="btn btn-neutral float-left" title="Basic Concepts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../user_guide/index.html" class="btn btn-neutral float-right" title="User Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Merlin team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

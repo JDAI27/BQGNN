@@ -1,0 +1,28 @@
+{
+  "config": {
+    "dataset": "MUTAG",
+    "seed": 41,
+    "epochs": 50,
+    "batch_size": 32,
+    "init_lr": 0.001,
+    "lr_reduce_factor": 0.5,
+    "lr_schedule_patience": 10,
+    "min_lr": 1e-06,
+    "weight_decay": 0.0,
+    "features": "degree",
+    "model": {
+      "hidden_dim": 64,
+      "num_layers": 4,
+      "dropout": 0.0,
+      "learn_eps": true,
+      "readout": "sum"
+    }
+  },
+  "result": {
+    "dataset": "MUTAG",
+    "mean_train_acc": 0.7374068917507832,
+    "std_train_acc": 0.18034642390154884,
+    "mean_val_acc": 0.7652046783625732,
+    "std_val_acc": 0.08552868992556253
+  }
+}

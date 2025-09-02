@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>merlin.core.ansatz module &mdash; merlinquantum 0.0.post53 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/style.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/fonts.css" />
+
+  
+    <link rel="shortcut icon" href="../../_static/Merlin icon white 32x32.ico"/>
+      <script src="../../_static/jquery.js"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+      <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/sphinx_highlight.js"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="merlin.core.base module" href="merlin.core.base.html" />
+    <link rel="prev" title="merlin.core package" href="merlin.core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            merlinquantum
+              <img src="../../_static/Merlin logo white 160x160.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../research/index.html">Expert Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/index.html">Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html">API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">merlinquantum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="merlin.html">merlin package</a></li>
+          <li class="breadcrumb-item"><a href="merlin.core.html">merlin.core package</a></li>
+      <li class="breadcrumb-item active">merlin.core.ansatz module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/reference/api/merlin.core.ansatz.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+               
+  <section id="module-merlin.core.ansatz">
+<span id="merlin-core-ansatz-module"></span><h1>merlin.core.ansatz module<a class="headerlink" href="#module-merlin.core.ansatz" title="Permalink to this heading"></a></h1>
+<p>Ansatz configuration and factory for quantum layers.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.ansatz.Ansatz">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.ansatz.</span></span><span class="sig-name descname"><span class="pre">Ansatz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PhotonicBackend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_mapping_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OutputMappingStrategy.LINEAR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.ansatz.Ansatz" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Complete configuration for a quantum neural network layer.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.ansatz.AnsatzFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.ansatz.</span></span><span class="sig-name descname"><span class="pre">AnsatzFactory</span></span><a class="headerlink" href="#merlin.core.ansatz.AnsatzFactory" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Factory for creating quantum layer ansatzes (complete configurations).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.ansatz.AnsatzFactory.create">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PhotonicBackend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_mapping_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OutputMappingStrategy.LINEAR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.ansatz.AnsatzFactory.create" title="Permalink to this definition"></a></dt>
+<dd><p>Create a complete ansatz configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#merlin.core.ansatz.Ansatz" title="merlin.core.ansatz.Ansatz"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ansatz</span></code></a></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Args:</dt><dd><p>PhotonicBackend (PhotonicBackend): The backend configuration to use.
+input_size (int): Size of the input feature vector.
+output_size (int | None): Size of the output vector. If None, it is defined by the backend.
+output_mapping_strategy (OutputMappingStrategy): Strategy for mapping outputs.
+device (torch.device | None): Device to run computations on.
+dtype (torch.dtype | None): Data type for computations.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Ansatz: A complete ansatz configuration for the quantum layer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.ansatz.CircuitGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.ansatz.</span></span><span class="sig-name descname"><span class="pre">CircuitGenerator</span></span><a class="headerlink" href="#merlin.core.ansatz.CircuitGenerator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Utility class for generating quantum photonic circuits.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.ansatz.CircuitGenerator.generate_circuit">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_circuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_modes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_features</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.ansatz.CircuitGenerator.generate_circuit" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a quantum circuit based on specified type.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.ansatz.ComputationProcessFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.ansatz.</span></span><span class="sig-name descname"><span class="pre">ComputationProcessFactory</span></span><a class="headerlink" href="#merlin.core.ansatz.ComputationProcessFactory" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Factory for creating computation processes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.ansatz.ComputationProcessFactory.create">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainable_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reservoir_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bunching</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_map_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_photons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.ansatz.ComputationProcessFactory.create" title="Permalink to this definition"></a></dt>
+<dd><p>Create a computation process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="merlin.core.process.html#merlin.core.process.ComputationProcess" title="merlin.core.process.ComputationProcess"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputationProcess</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.ansatz.FeatureEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.ansatz.</span></span><span class="sig-name descname"><span class="pre">FeatureEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.ansatz.FeatureEncoder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Utility class for encoding classical features into quantum circuit parameters.</p>
+<p>This class provides methods to encode normalized classical features into parameters
+that can be used to configure quantum circuits. Different encoding strategies are
+supported depending on the circuit type.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.ansatz.FeatureEncoder.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_modes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth_coeffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_shifters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.ansatz.FeatureEncoder.encode" title="Permalink to this definition"></a></dt>
+<dd><p>Encode normalized features into quantum circuit parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Args:</dt><dd><p>X_norm: Normalized input features of shape (batch_size, num_features)
+circuit_type: Type of quantum circuit architecture
+n_modes: Number of modes in the quantum circuit
+bandwidth_coeffs: Optional bandwidth tuning coefficients for each feature dimension
+total_shifters: Optional total number of phase shifters (unused in current implementation)</p>
+</dd>
+<dt>Returns:</dt><dd><p>Encoded parameters tensor of shape (batch_size, num_parameters)</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If circuit_type is not supported</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class enum">
+<dt class="sig sig-object py" id="merlin.core.ansatz.OutputMappingStrategy">
+<em class="property"><span class="pre">enum</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.ansatz.</span></span><span class="sig-name descname"><span class="pre">OutputMappingStrategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.ansatz.OutputMappingStrategy" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="merlin.sampling.strategies.html#merlin.sampling.strategies.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>Strategy for mapping quantum probability distributions to classical outputs.</p>
+<p>Valid values are as follows:</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.ansatz.OutputMappingStrategy.LINEAR">
+<span class="sig-name descname"><span class="pre">LINEAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.LINEAR:</span> <span class="pre">'linear'&gt;</span></em><a class="headerlink" href="#merlin.core.ansatz.OutputMappingStrategy.LINEAR" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.ansatz.OutputMappingStrategy.GROUPING">
+<span class="sig-name descname"><span class="pre">GROUPING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.GROUPING:</span> <span class="pre">'grouping'&gt;</span></em><a class="headerlink" href="#merlin.core.ansatz.OutputMappingStrategy.GROUPING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.ansatz.OutputMappingStrategy.LEXGROUPING">
+<span class="sig-name descname"><span class="pre">LEXGROUPING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.LEXGROUPING:</span> <span class="pre">'lexgrouping'&gt;</span></em><a class="headerlink" href="#merlin.core.ansatz.OutputMappingStrategy.LEXGROUPING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.ansatz.OutputMappingStrategy.MODGROUPING">
+<span class="sig-name descname"><span class="pre">MODGROUPING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.MODGROUPING:</span> <span class="pre">'modgrouping'&gt;</span></em><a class="headerlink" href="#merlin.core.ansatz.OutputMappingStrategy.MODGROUPING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.ansatz.OutputMappingStrategy.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.NONE:</span> <span class="pre">'none'&gt;</span></em><a class="headerlink" href="#merlin.core.ansatz.OutputMappingStrategy.NONE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.ansatz.PhotonicBackend">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.ansatz.</span></span><span class="sig-name descname"><span class="pre">PhotonicBackend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_modes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StatePattern.PERIODIC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_bandwidth_tuning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reservoir_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.ansatz.PhotonicBackend" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Configuration container for quantum layer experiments.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.ansatz.StateGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.ansatz.</span></span><span class="sig-name descname"><span class="pre">StateGenerator</span></span><a class="headerlink" href="#merlin.core.ansatz.StateGenerator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Utility class for generating photonic input states.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.ansatz.StateGenerator.generate_state">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_modes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_pattern</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.ansatz.StateGenerator.generate_state" title="Permalink to this definition"></a></dt>
+<dd><p>Generate an input state based on specified pattern.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+ 
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="merlin.core.html" class="btn btn-neutral float-left" title="merlin.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="merlin.core.base.html" class="btn btn-neutral float-right" title="merlin.core.base module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Merlin team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

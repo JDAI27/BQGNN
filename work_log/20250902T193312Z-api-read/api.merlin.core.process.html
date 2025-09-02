@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>merlin.core.process module &mdash; merlinquantum 0.0.post53 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/style.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/fonts.css" />
+
+  
+    <link rel="shortcut icon" href="../../_static/Merlin icon white 32x32.ico"/>
+      <script src="../../_static/jquery.js"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+      <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/sphinx_highlight.js"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="merlin.datasets package" href="merlin.datasets.html" />
+    <link rel="prev" title="merlin.core.photonicbackend module" href="merlin.core.photonicbackend.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            merlinquantum
+              <img src="../../_static/Merlin logo white 160x160.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../research/index.html">Expert Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/index.html">Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html">API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">merlinquantum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="merlin.html">merlin package</a></li>
+          <li class="breadcrumb-item"><a href="merlin.core.html">merlin.core package</a></li>
+      <li class="breadcrumb-item active">merlin.core.process module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/reference/api/merlin.core.process.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+               
+  <section id="module-merlin.core.process">
+<span id="merlin-core-process-module"></span><h1>merlin.core.process module<a class="headerlink" href="#module-merlin.core.process" title="Permalink to this heading"></a></h1>
+<p>Quantum computation processes and factories.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.process.AbstractComputationProcess">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.process.</span></span><span class="sig-name descname"><span class="pre">AbstractComputationProcess</span></span><a class="headerlink" href="#merlin.core.process.AbstractComputationProcess" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="merlin.core.base.html#merlin.core.base.ABC" title="abc.ABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>Abstract base class for quantum computation processes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.process.AbstractComputationProcess.compute">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.AbstractComputationProcess.compute" title="Permalink to this definition"></a></dt>
+<dd><p>Perform the computation.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>*args: Positional arguments for the computation.
+**kwargs: Keyword arguments for the computation.`</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.process.CircuitConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.process.</span></span><span class="sig-name descname"><span class="pre">CircuitConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_specs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.complex64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">device(type='cpu')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.CircuitConverter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Convert a parameterized Perceval circuit into a differentiable PyTorch unitary matrix.</p>
+<p>This class converts Perceval quantum circuits into PyTorch tensors that can be used
+in neural network training with automatic differentiation. It supports batch processing
+for efficient training and handles various quantum components like beam splitters,
+phase shifters, and unitary operations.</p>
+<dl>
+<dt>Supported Components:</dt><dd><ul class="simple">
+<li><p>PS (Phase Shifter)</p></li>
+<li><p>BS (Beam Splitter)</p></li>
+<li><p>PERM (Permutation)</p></li>
+<li><p>Unitary (Generic unitary matrix)</p></li>
+<li><p>Barrier (no-op, removed during compilation)</p></li>
+</ul>
+</dd>
+<dt>Attributes:</dt><dd><p>circuit: The Perceval circuit to convert
+param_mapping: Maps parameter names to tensor indices
+device: PyTorch device for tensor operations
+tensor_cdtype: Complex tensor dtype
+tensor_fdtype: Float tensor dtype</p>
+</dd>
+<dt>Example:</dt><dd><p>Basic usage with a single phase shifter:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">perceval</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pcvl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">merlin.pcvl_pytorch.locirc_to_tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">CircuitConverter</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a simple circuit with one phase shifter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">circuit</span> <span class="o">=</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">Circuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">PS</span><span class="p">(</span><span class="n">pcvl</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="s2">&quot;phi&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Convert to PyTorch with gradient tracking</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">CircuitConverter</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">input_specs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;phi&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phi_params</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.5</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unitary</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">to_tensor</span><span class="p">(</span><span class="n">phi_params</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">unitary</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># torch.Size([1, 1])</span>
+</pre></div>
+</div>
+<p>Multiple parameters with grouping:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Circuit with multiple phase shifters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">circuit</span> <span class="o">=</span> <span class="p">(</span><span class="n">pcvl</span><span class="o">.</span><span class="n">Circuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">... </span>           <span class="o">//</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">PS</span><span class="p">(</span><span class="n">pcvl</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="s2">&quot;theta1&quot;</span><span class="p">))</span>
+<span class="gp">... </span>           <span class="o">//</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">PS</span><span class="p">(</span><span class="n">pcvl</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="s2">&quot;theta2&quot;</span><span class="p">))))</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">CircuitConverter</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">input_specs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;theta&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">theta_params</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unitary</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">to_tensor</span><span class="p">(</span><span class="n">theta_params</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">unitary</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># torch.Size([2, 2])</span>
+</pre></div>
+</div>
+<p>Batch processing for training:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Batch of parameter values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch_params</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">]],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">CircuitConverter</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">input_specs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;phi&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch_unitary</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">to_tensor</span><span class="p">(</span><span class="n">batch_params</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">batch_unitary</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># torch.Size([3, 1, 1])</span>
+</pre></div>
+</div>
+<p>Training integration:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Training loop with beam splitter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">circuit</span> <span class="o">=</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">Circuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="n">pcvl</span><span class="o">.</span><span class="n">BS</span><span class="o">.</span><span class="n">Rx</span><span class="p">(</span><span class="n">pcvl</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="s2">&quot;theta&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">CircuitConverter</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;theta&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">theta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.5</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">([</span><span class="n">theta</span><span class="p">],</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">unitary</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">to_tensor</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">some_loss_function</span><span class="p">(</span><span class="n">unitary</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.process.CircuitConverter.set_dtype">
+<span class="sig-name descname"><span class="pre">set_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.CircuitConverter.set_dtype" title="Permalink to this definition"></a></dt>
+<dd><p>Set the tensor data types for float and complex operations.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dtype: Target dtype (float32/complex64 or float64/complex128)</p>
+</dd>
+<dt>Raises:</dt><dd><p>TypeError: If dtype is not supported</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.process.CircuitConverter.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.CircuitConverter.to" title="Permalink to this definition"></a></dt>
+<dd><p>Move the converter to a specific device and dtype.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dtype: Target tensor dtype (float32/complex64 or float64/complex128)
+device: Target device (string or torch.device)</p>
+</dd>
+<dt>Returns:</dt><dd><p>Self for method chaining</p>
+</dd>
+<dt>Raises:</dt><dd><p>TypeError: If device type or dtype is not supported</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.process.CircuitConverter.to_tensor">
+<span class="sig-name descname"><span class="pre">to_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">input_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.CircuitConverter.to_tensor" title="Permalink to this definition"></a></dt>
+<dd><p>Convert the parameterized circuit to a PyTorch unitary tensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Args:</dt><dd><p>*input_params: Variable number of parameter tensors. Each tensor has shape (num_params,) or (batch_size, num_params) corresponding to input_specs order.
+batch_size: Explicit batch size. If None, inferred from input tensors.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Complex unitary tensor of shape (circuit.m, circuit.m) for single samples</dt><dd><p>or (batch_size, circuit.m, circuit.m) for batched inputs.</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If wrong number of input tensors provided.
+TypeError: If input_params is not a list or tuple.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.process.ComputationProcess">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.process.</span></span><span class="sig-name descname"><span class="pre">ComputationProcess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainable_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reservoir_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.float32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bunching</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_map_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_photons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.ComputationProcess" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="merlin.core.base.html#merlin.core.base.AbstractComputationProcess" title="merlin.core.base.AbstractComputationProcess"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractComputationProcess</span></code></a></p>
+<p>Handles quantum circuit computation and state evolution.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.process.ComputationProcess.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.ComputationProcess.compute" title="Permalink to this definition"></a></dt>
+<dd><p>Compute quantum output distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.process.ComputationProcess.compute_with_keys">
+<span class="sig-name descname"><span class="pre">compute_with_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.ComputationProcess.compute_with_keys" title="Permalink to this definition"></a></dt>
+<dd><p>Compute quantum output distribution and return both keys and probabilities.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.process.ComputationProcessFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.process.</span></span><span class="sig-name descname"><span class="pre">ComputationProcessFactory</span></span><a class="headerlink" href="#merlin.core.process.ComputationProcessFactory" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Factory for creating computation processes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.process.ComputationProcessFactory.create">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainable_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reservoir_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bunching</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_map_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_photons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.ComputationProcessFactory.create" title="Permalink to this definition"></a></dt>
+<dd><p>Create a computation process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#merlin.core.process.ComputationProcess" title="merlin.core.process.ComputationProcess"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputationProcess</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="merlin.core.process.build_slos_distribution_computegraph">
+<span class="sig-prename descclassname"><span class="pre">merlin.core.process.</span></span><span class="sig-name descname"><span class="pre">build_slos_distribution_computegraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_map_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bunching</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.float32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_photons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.process.build_slos_distribution_computegraph" title="Permalink to this definition"></a></dt>
+<dd><p>Build a computation graph for Strong Linear Optical Simulation (SLOS) algorithm
+that can be reused for multiple unitaries.</p>
+<p>[existing docstring…]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="merlin.pcvl_pytorch.slos_torchscript.html#merlin.pcvl_pytorch.slos_torchscript.SLOSComputeGraph" title="merlin.pcvl_pytorch.slos_torchscript.SLOSComputeGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">SLOSComputeGraph</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+ 
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="merlin.core.photonicbackend.html" class="btn btn-neutral float-left" title="merlin.core.photonicbackend module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="merlin.datasets.html" class="btn btn-neutral float-right" title="merlin.datasets package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Merlin team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

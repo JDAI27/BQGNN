@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>merlin.core.layer module &mdash; merlinquantum 0.0.post53 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/style.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/fonts.css" />
+
+  
+    <link rel="shortcut icon" href="../../_static/Merlin icon white 32x32.ico"/>
+      <script src="../../_static/jquery.js"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+      <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/sphinx_highlight.js"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="merlin.core.photonicbackend module" href="merlin.core.photonicbackend.html" />
+    <link rel="prev" title="merlin.core.generators module" href="merlin.core.generators.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            merlinquantum
+              <img src="../../_static/Merlin logo white 160x160.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../research/index.html">Expert Area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/index.html">Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html">API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">merlinquantum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="merlin.html">merlin package</a></li>
+          <li class="breadcrumb-item"><a href="merlin.core.html">merlin.core package</a></li>
+      <li class="breadcrumb-item active">merlin.core.layer module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/reference/api/merlin.core.layer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+               
+  <section id="module-merlin.core.layer">
+<span id="merlin-core-layer-module"></span><h1>merlin.core.layer module<a class="headerlink" href="#module-merlin.core.layer" title="Permalink to this heading"></a></h1>
+<p>Main QuantumLayer implementation with bug fixes and index_photons support.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.layer.Ansatz">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">Ansatz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PhotonicBackend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_mapping_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OutputMappingStrategy.LINEAR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.Ansatz" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Complete configuration for a quantum neural network layer.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.layer.AnsatzFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">AnsatzFactory</span></span><a class="headerlink" href="#merlin.core.layer.AnsatzFactory" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Factory for creating quantum layer ansatzes (complete configurations).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.AnsatzFactory.create">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PhotonicBackend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_mapping_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OutputMappingStrategy.LINEAR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.AnsatzFactory.create" title="Permalink to this definition"></a></dt>
+<dd><p>Create a complete ansatz configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="merlin.core.ansatz.html#merlin.core.ansatz.Ansatz" title="merlin.core.ansatz.Ansatz"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ansatz</span></code></a></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Args:</dt><dd><p>PhotonicBackend (PhotonicBackend): The backend configuration to use.
+input_size (int): Size of the input feature vector.
+output_size (int | None): Size of the output vector. If None, it is defined by the backend.
+output_mapping_strategy (OutputMappingStrategy): Strategy for mapping outputs.
+device (torch.device | None): Device to run computations on.
+dtype (torch.dtype | None): Data type for computations.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Ansatz: A complete ansatz configuration for the quantum layer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.layer.AutoDiffProcess">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">AutoDiffProcess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampling_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'multinomial'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.AutoDiffProcess" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handles automatic differentiation backend and sampling noise integration.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.AutoDiffProcess.autodiff_backend">
+<span class="sig-name descname"><span class="pre">autodiff_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">needs_gradient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_sampling</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shots</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.AutoDiffProcess.autodiff_backend" title="Permalink to this definition"></a></dt>
+<dd><p>Determine sampling configuration based on gradient requirements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class enum">
+<dt class="sig sig-object py" id="merlin.core.layer.CircuitType">
+<em class="property"><span class="pre">enum</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">CircuitType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.CircuitType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="merlin.sampling.strategies.html#merlin.sampling.strategies.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>Quantum circuit topology types.</p>
+<p>Valid values are as follows:</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.CircuitType.PARALLEL_COLUMNS">
+<span class="sig-name descname"><span class="pre">PARALLEL_COLUMNS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;CircuitType.PARALLEL_COLUMNS:</span> <span class="pre">'parallel_columns'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.CircuitType.PARALLEL_COLUMNS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.CircuitType.SERIES">
+<span class="sig-name descname"><span class="pre">SERIES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;CircuitType.SERIES:</span> <span class="pre">'series'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.CircuitType.SERIES" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.CircuitType.PARALLEL">
+<span class="sig-name descname"><span class="pre">PARALLEL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;CircuitType.PARALLEL:</span> <span class="pre">'parallel'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.CircuitType.PARALLEL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.layer.ComputationProcessFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">ComputationProcessFactory</span></span><a class="headerlink" href="#merlin.core.layer.ComputationProcessFactory" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Factory for creating computation processes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.ComputationProcessFactory.create">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainable_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reservoir_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bunching</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_map_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_photons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.ComputationProcessFactory.create" title="Permalink to this definition"></a></dt>
+<dd><p>Create a computation process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="merlin.core.process.html#merlin.core.process.ComputationProcess" title="merlin.core.process.ComputationProcess"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputationProcess</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.Experiment">
+<span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">Experiment</span></span><a class="headerlink" href="#merlin.core.layer.Experiment" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="merlin.core.photonicbackend.html#merlin.core.photonicbackend.PhotonicBackend" title="merlin.core.photonicbackend.PhotonicBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">PhotonicBackend</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.layer.OutputMapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">OutputMapper</span></span><a class="headerlink" href="#merlin.core.layer.OutputMapper" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handles mapping quantum probability distributions to classical outputs.</p>
+<p>This class provides factory methods for creating different types of output mappers
+that convert quantum probability distributions to classical neural network outputs.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.OutputMapper.create_mapping">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.OutputMapper.create_mapping" title="Permalink to this definition"></a></dt>
+<dd><p>Create an output mapping based on the specified strategy.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>strategy: The output mapping strategy to use
+input_size: Size of the input probability distribution
+output_size: Desired size of the output tensor</p>
+</dd>
+<dt>Returns:</dt><dd><p>A PyTorch module that maps input_size to output_size</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If strategy is unknown or sizes are incompatible for ‘none’ strategy</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class enum">
+<dt class="sig sig-object py" id="merlin.core.layer.OutputMappingStrategy">
+<em class="property"><span class="pre">enum</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">OutputMappingStrategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.OutputMappingStrategy" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="merlin.sampling.strategies.html#merlin.sampling.strategies.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>Strategy for mapping quantum probability distributions to classical outputs.</p>
+<p>Valid values are as follows:</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.OutputMappingStrategy.LINEAR">
+<span class="sig-name descname"><span class="pre">LINEAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.LINEAR:</span> <span class="pre">'linear'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.OutputMappingStrategy.LINEAR" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.OutputMappingStrategy.GROUPING">
+<span class="sig-name descname"><span class="pre">GROUPING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.GROUPING:</span> <span class="pre">'grouping'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.OutputMappingStrategy.GROUPING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.OutputMappingStrategy.LEXGROUPING">
+<span class="sig-name descname"><span class="pre">LEXGROUPING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.LEXGROUPING:</span> <span class="pre">'lexgrouping'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.OutputMappingStrategy.LEXGROUPING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.OutputMappingStrategy.MODGROUPING">
+<span class="sig-name descname"><span class="pre">MODGROUPING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.MODGROUPING:</span> <span class="pre">'modgrouping'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.OutputMappingStrategy.MODGROUPING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.OutputMappingStrategy.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;OutputMappingStrategy.NONE:</span> <span class="pre">'none'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.OutputMappingStrategy.NONE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="merlin.core.layer.QuantumLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">QuantumLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ansatz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainable_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_mapping_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OutputMappingStrategy.LINEAR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'multinomial'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bunching</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_photons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.QuantumLayer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Enhanced Quantum Neural Network Layer with factory-based architecture.</p>
+<p>This layer can be created either from:
+1. An Ansatz object (from AnsatzFactory) - for auto-generated circuits
+2. Direct parameters - for custom circuits (backward compatible)</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>index_photons (List[Tuple[int, int]], optional): List of tuples (min_mode, max_mode)</dt><dd><p>constraining where each photon can be placed. The first_integer is the lowest
+index layer a photon can take and the second_integer is the highest index.
+If None, photons can be placed in any mode from 0 to m-1.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.QuantumLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">input_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.QuantumLayer.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Forward pass through the quantum layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.QuantumLayer.get_index_photons_info">
+<span class="sig-name descname"><span class="pre">get_index_photons_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.QuantumLayer.get_index_photons_info" title="Permalink to this definition"></a></dt>
+<dd><p>Get information about index_photons constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dict: Information about photon placement constraints</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.QuantumLayer.prepare_parameters">
+<span class="sig-name descname"><span class="pre">prepare_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.QuantumLayer.prepare_parameters" title="Permalink to this definition"></a></dt>
+<dd><p>Prepare parameter list for circuit evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.QuantumLayer.set_sampling_config">
+<span class="sig-name descname"><span class="pre">set_sampling_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.QuantumLayer.set_sampling_config" title="Permalink to this definition"></a></dt>
+<dd><p>Update sampling configuration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.QuantumLayer.simple">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reservoir_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_mapping_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OutputMappingStrategy.NONE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bunching</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.QuantumLayer.simple" title="Permalink to this definition"></a></dt>
+<dd><p>Simplified interface for creating a QuantumLayer.</p>
+<p>Uses SERIES circuit type with PERIODIC state pattern as defaults.
+Automatically calculates the number of modes based on n_params.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input_size (int): Size of the input vector
+n_params (int): Total number of parameters desired (default: 100). Formula: n_params = 2 * n_modes^2
+shots (int): Number of shots for sampling (default: 0)
+reservoir_mode (bool): Whether to use reservoir mode (default: False)
+output_size (int, optional): Output dimension. If None, uses distribution size
+output_mapping_strategy: How to map quantum output to classical output
+device: PyTorch device
+dtype: PyTorch dtype
+no_bunching: Whether to exclude states with multiple photons per mode</p>
+</dd>
+<dt>Returns:</dt><dd><p>QuantumLayer: Configured quantum layer instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="merlin.core.layer.QuantumLayer.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.QuantumLayer.to" title="Permalink to this definition"></a></dt>
+<dd><p>Move and/or cast the parameters and buffers.</p>
+<p>This can be called as</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memory_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.channels_last</span></span></em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<p>Its signature is similar to <code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.to()</span></code>, but only accepts
+floating point or complex <code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype</span></code>s. In addition, this method will
+only cast the floating point or complex parameters and buffers to <code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype</span></code>
+(if given). The integral parameters and buffers will be moved
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code>, if that is given, but with dtypes unchanged. When
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">non_blocking</span></code> is set, it tries to convert/move asynchronously
+with respect to the host if possible, e.g., moving CPU Tensors with
+pinned memory to CUDA devices.</p>
+<p>See below for examples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method modifies the module in-place.</p>
+</div>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>device (<code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code>): the desired device of the parameters</dt><dd><p>and buffers in this module</p>
+</dd>
+<dt>dtype (<code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code>): the desired floating point or complex dtype of</dt><dd><p>the parameters and buffers in this module</p>
+</dd>
+<dt>tensor (torch.Tensor): Tensor whose dtype and device are the desired</dt><dd><p>dtype and device for all parameters and buffers in this module</p>
+</dd>
+<dt>memory_format (<code class="xref py py-class docutils literal notranslate"><span class="pre">torch.memory_format</span></code>): the desired memory</dt><dd><p>format for 4D parameters and buffers in this module (keyword
+only argument)</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>Module: self</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># xdoctest: +IGNORE_WANT(&quot;non-deterministic&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.1913, -0.3420],</span>
+<span class="go">        [-0.5113, -0.2325]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">double</span><span class="p">)</span>
+<span class="go">Linear(in_features=2, out_features=2, bias=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.1913, -0.3420],</span>
+<span class="go">        [-0.5113, -0.2325]], dtype=torch.float64)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># xdoctest: +REQUIRES(env:TORCH_DOCTEST_CUDA1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gpu1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:1&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">gpu1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">half</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">Linear(in_features=2, out_features=2, bias=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.1914, -0.3420],</span>
+<span class="go">        [-0.5112, -0.2324]], dtype=torch.float16, device=&#39;cuda:1&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cpu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">cpu</span><span class="p">)</span>
+<span class="go">Linear(in_features=2, out_features=2, bias=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.1914, -0.3420],</span>
+<span class="go">        [-0.5112, -0.2324]], dtype=torch.float16)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cdouble</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.3741+0.j,  0.2382+0.j],</span>
+<span class="go">        [ 0.5593+0.j, -0.4443+0.j]], dtype=torch.complex128)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">cdouble</span><span class="p">))</span>
+<span class="go">tensor([[0.6122+0.j, 0.1150+0.j],</span>
+<span class="go">        [0.6122+0.j, 0.1150+0.j],</span>
+<span class="go">        [0.6122+0.j, 0.1150+0.j]], dtype=torch.complex128)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class enum">
+<dt class="sig sig-object py" id="merlin.core.layer.StatePattern">
+<em class="property"><span class="pre">enum</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">merlin.core.layer.</span></span><span class="sig-name descname"><span class="pre">StatePattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#merlin.core.layer.StatePattern" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="merlin.sampling.strategies.html#merlin.sampling.strategies.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>Input photon state patterns.</p>
+<p>Valid values are as follows:</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.StatePattern.DEFAULT">
+<span class="sig-name descname"><span class="pre">DEFAULT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;StatePattern.DEFAULT:</span> <span class="pre">'default'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.StatePattern.DEFAULT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.StatePattern.SPACED">
+<span class="sig-name descname"><span class="pre">SPACED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;StatePattern.SPACED:</span> <span class="pre">'spaced'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.StatePattern.SPACED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.StatePattern.SEQUENTIAL">
+<span class="sig-name descname"><span class="pre">SEQUENTIAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;StatePattern.SEQUENTIAL:</span> <span class="pre">'sequential'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.StatePattern.SEQUENTIAL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="merlin.core.layer.StatePattern.PERIODIC">
+<span class="sig-name descname"><span class="pre">PERIODIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;StatePattern.PERIODIC:</span> <span class="pre">'periodic'&gt;</span></em><a class="headerlink" href="#merlin.core.layer.StatePattern.PERIODIC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+ 
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="merlin.core.generators.html" class="btn btn-neutral float-left" title="merlin.core.generators module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="merlin.core.photonicbackend.html" class="btn btn-neutral float-right" title="merlin.core.photonicbackend module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Merlin team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
